@@ -26,6 +26,9 @@
     <None Include="MyFirstGeometryShader.glsl" />
     <None Include="MyFistVertexShader.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="InputManager\InputManager.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

@@ -42,4 +42,9 @@
       <Filter>Archivos de recursos\shaders\FragmentShader</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="InputManager\InputManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
