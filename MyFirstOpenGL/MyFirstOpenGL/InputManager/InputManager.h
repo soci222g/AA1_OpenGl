@@ -25,4 +25,11 @@ public:
 		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW1", NULL, NULL);
 		return glfwGetKey(window, key) == GLFW_PRESS;
 	}
+
+	bool IsKeyRelised(int Key) const {
+
+		GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW1", NULL, NULL);
+
+		return glfwGetKey(window, Key) == GLFW_REPEAT;
+	}
 };
