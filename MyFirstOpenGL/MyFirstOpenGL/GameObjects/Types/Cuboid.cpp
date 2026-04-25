@@ -1,0 +1,89 @@
+#include "Cuboid.h"
+
+void Cuboid::SetupGeometry()
+{
+	// VAO
+	glGenVertexArrays(1, &vertexArrayObject);
+	glBindVertexArray(vertexArrayObject);
+
+	// VBOs
+	glGenBuffers(1, &vertexBufferObject);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+
+	GLfloat w = width / 2.0f;
+	GLfloat h = height / 2.0f;
+	GLfloat d = depth / 2.0f;
+
+	GLfloat vertices[] = {
+		// front
+		-w,  h, -d,
+		 w,  h, -d,
+		-w, -h, -d,
+		 w, -h, -d,
+		// right
+		w,  h, -d,
+		w,  h,  d,
+		w, -h, -d,
+		w, -h,  d,
+		// top
+		-w,  h, -d,
+		-w,  h,  d,
+		w,  h, -d,
+		w,  h,  d,
+		// bottom
+		-w, -h, -d,
+		-w, -h,  d,
+		w, -h, -d
+	};
+
+	vertexCount = 14;
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+
+void Cuboid::Update(float dt)
+{
+	// rotar sobre l'eix z
+	rotation.z += angularVelocity * dt;
+	if (rotation.z >= 360.f) {
+		rotation.z -= 360.f;
+	}
+
+	// escalar de maxim a minim i tornar
+	UpdateScale(dt);
+}
+
+void Cuboid::UpdateScale(float dt)
+{
+	if (scalingDown) {
+		scale.x -= scaleSpeed * dt;
+		scale.y -= scaleSpeed * dt;
+		scale.z -= scaleSpeed * dt;
+
+		if (scale.x <= minScale) {
+			scale.x = minScale;
+			scale.y = minScale;
+			scale.z = minScale;
+			scalingDown = false;
+		}
+	}
+	else {
+		scale.x += scaleSpeed * dt;
+		scale.y += scaleSpeed * dt;
+		scale.z += scaleSpeed * dt;
+
+		if (scale.x >= maxScale) {
+			scale.x = maxScale;
+			scale.y = maxScale;
+			scale.z = maxScale;
+			scalingDown = true;
+		}
+	}
+}
