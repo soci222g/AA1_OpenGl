@@ -39,6 +39,7 @@
     <None Include="MyFistVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aplication\Aplication.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Types\Cube.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="shader\ShaderType\FragmentShader.h" />
     <ClInclude Include="shader\ShaderType\GeometryShader.h" />
     <ClInclude Include="shader\ShaderType\VertexShader.h" />
+    <ClInclude Include="TimeManager\TimeManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
