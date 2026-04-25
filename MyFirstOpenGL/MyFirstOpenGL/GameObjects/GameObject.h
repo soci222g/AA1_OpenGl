@@ -1,6 +1,8 @@
 #pragma once
 #include <glm.hpp>
 #include <GL/glew.h>
+#include <ext/matrix_transform.hpp>
+
 
 class GameObject
 {
@@ -23,7 +25,7 @@ protected:
 
 
 public:
-	GameObject() = default;
+
 	GameObject() : position(glm::vec3(0.f)), rotation(glm::vec3(0.f)), scale(glm::vec3(1.f)) {}
 	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 sca) : position(pos), rotation(rot), scale(sca) {}
 	virtual ~GameObject() = default;

@@ -9,6 +9,12 @@ void GameManager::ResizeWindow(GLFWwindow* window, int iNewFrameBufferWidth, int
 	//definir nou tamany
 	glViewport(0, 0, iNewFrameBufferWidth, iNewFrameBufferHeight);
 }
+void ResizeWindow2(GLFWwindow* window, int iNewFrameBufferWidth, int iNewFrameBufferHeight)
+{
+	//definir nou tamany
+	glViewport(0, 0, iNewFrameBufferWidth, iNewFrameBufferHeight);
+}
+
 
 void GameManager::Initialize()
 {
@@ -26,17 +32,9 @@ void GameManager::Initialize()
 	//configura si es escalabla la finestra
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-	// Create window
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW1", NULL, NULL);
-	if (!window) {
-		std::cout << "Error al crear la ventana" << std::endl;
-		glfwTerminate();
-		std::exit(EXIT_FAILURE);
-	}
 
-	glfwSetFramebufferSizeCallback(window, ResizeWindow);
-	//definim la finestra
-	glfwMakeContextCurrent(window);
+	CreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW1");
+	// Create window
 
 	//activem funcions experimentals per a totes les grafiques
 	glewExperimental = GL_TRUE;
@@ -143,10 +141,10 @@ void GameManager::Cleanup()
 
 void GameManager::CreateWindow(int width, int height, const char* title)
 {
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "WINDOW1", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title, NULL, NULL);
 
 
-	glfwSetFramebufferSizeCallback(window, ResizeWindow);
+	glfwSetFramebufferSizeCallback(window, ResizeWindow2);
 
 	//definir la finestra
 	glfwMakeContextCurrent(window);
