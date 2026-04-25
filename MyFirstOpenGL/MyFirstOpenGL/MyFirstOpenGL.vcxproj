@@ -19,6 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObjects\Types\Cube.cpp" />
+    <ClCompile Include="GameObjects\Types\Cuboid.cpp" />
+    <ClCompile Include="GameObjects\Types\Pyramid.cpp" />
+    <ClCompile Include="InputManager\InputManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="shader\Shader.cpp" />
+    <ClCompile Include="shader\ShaderProgram.cpp" />
+    <ClCompile Include="shader\ShaderType\FragmentShader.cpp" />
+    <ClCompile Include="shader\ShaderType\GeometryShader.cpp" />
+    <ClCompile Include="shader\ShaderType\VertexShader.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -27,7 +39,17 @@
     <None Include="MyFistVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Types\Cube.h" />
+    <ClInclude Include="GameObjects\Types\Cuboid.h" />
+    <ClInclude Include="GameObjects\Types\Pyramid.h" />
     <ClInclude Include="InputManager\InputManager.h" />
+    <ClInclude Include="shader\Shader.h" />
+    <ClInclude Include="shader\ShaderProgram.h" />
+    <ClInclude Include="shader\ShaderType\FragmentShader.h" />
+    <ClInclude Include="shader\ShaderType\GeometryShader.h" />
+    <ClInclude Include="shader\ShaderType\VertexShader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
