@@ -4,11 +4,7 @@
 #include "GameObjects/Types/Pyramid.h"
 #include <gtc/type_ptr.hpp>
 
-void GameManager::ResizeWindow(GLFWwindow* window, int iNewFrameBufferWidth, int iNewFrameBufferHeight)
-{
-	//definir nou tamany
-	glViewport(0, 0, iNewFrameBufferWidth, iNewFrameBufferHeight);
-}
+
 void ResizeWindow2(GLFWwindow* window, int iNewFrameBufferWidth, int iNewFrameBufferHeight)
 {
 	//definir nou tamany
@@ -53,9 +49,12 @@ void GameManager::Initialize()
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 
 	// carrega i compila els shaders
+
+	shaderProgram = new ShaderProgram();
+
 	shaderProgram->GetVertexShader().loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader().loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader().loadFragmentShader("MyFirstFragmentShader.glsl");
+//	shaderProgram->GetGeometryShader().loadGeometryShader("MyFirstGeometryShader.glsl");
+//	shaderProgram->GetFragmentShader().loadFragmentShader("MyFirstFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
@@ -84,7 +83,6 @@ void GameManager::LoadGame()
 
 	shaderProgram->UnuseProgram();
 
-	lastFrameTime = glfwGetTime();
 }
 
 void GameManager::Update(float dt)
@@ -99,13 +97,15 @@ void GameManager::Update(float dt)
 	inputManager.handleKeyInput(GLFW_KEY_ESCAPE);
 
 	// actualitzar objectes tenint en compte el speed multiplier
-	float adjustedDt = dt * inputManager.getSpeedMultiplier();
+	float adjustedDt = dt;
 
 	if (!inputManager.isPaused()) {
 		for (auto& obj : gameObjects) {
 			obj->Update(adjustedDt);
 		}
 	}
+
+
 }
 
 void GameManager::Render()

@@ -19,13 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Aplication\Aplication.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Types\Cube.cpp" />
     <ClCompile Include="GameObjects\Types\Cuboid.cpp" />
     <ClCompile Include="GameObjects\Types\Pyramid.cpp" />
     <ClCompile Include="InputManager\InputManager.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="shader\Shader.cpp" />
     <ClCompile Include="shader\ShaderProgram.cpp" />
     <ClCompile Include="shader\ShaderType\FragmentShader.cpp" />

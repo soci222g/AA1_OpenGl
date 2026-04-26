@@ -22,7 +22,7 @@ void FragmentShader::loadFragmentShader(const std::string& path)
 
 
 	if (succes) {
-		SetShader(FragmentShader);
+		SetShader(&FragmentShader);
 	}
 	else {
 		std::cout << " error de carga!!" << std::endl;

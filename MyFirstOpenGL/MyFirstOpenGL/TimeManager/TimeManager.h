@@ -23,6 +23,9 @@ public:
 	}
 
 	float GetDeltaTime() const { return _deltaTime; }	
+	void SetMultiplayerSpeed(float speed) { _multiplayerSpeed += speed; }
+	float GetMultiplayerSpeed() const { return _multiplayerSpeed; }	
+
 
 private:
 	TimeManager() : _deltaTime(0.f), _currentTime(0.f)

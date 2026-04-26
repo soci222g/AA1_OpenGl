@@ -40,7 +40,7 @@ void ShaderProgram::loadProgram()
 
 		}
 
-		SetProgram(program);
+		Program = program;
 	}
 	else {
 		std::cout << " error del programa!!" << std::endl;
@@ -52,7 +52,7 @@ void ShaderProgram::loadProgram()
 		std::vector<GLchar> errorlog(logLenght);
 		glGetProgramInfoLog(program, logLenght, nullptr, errorlog.data());
 
-
+		if (errorlog.size() > 0)
 		//el printagem i surtim del programa
 		std::cout << errorlog.data() << std::endl;
 		std::exit(EXIT_FAILURE);

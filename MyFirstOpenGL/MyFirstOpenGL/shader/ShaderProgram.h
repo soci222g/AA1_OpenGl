@@ -21,10 +21,9 @@ public:
 	void UseProgram() const { glUseProgram(Program); }
 	void UnuseProgram() const { glUseProgram(0); }
 
-	GLuint GetProgram() const { return Program; }
-	void SetProgram(GLuint program) { Program = program; }	
-	VertexShader GetVertexShader() const { return _vertexShader; }
-	GeometryShader GetGeometryShader() const { return _geometryShader; }
-	FragmentShader GetFragmentShader() const { return _fragmentShader; }
+	GLuint GetProgram()  { return Program; }
+	VertexShader GetVertexShader() { return _vertexShader; }
+	GeometryShader GetGeometryShader()  { return _geometryShader; }
+	FragmentShader GetFragmentShader()  { return _fragmentShader; }
 
 };

@@ -17,7 +17,7 @@ void VertexShader::loadVertexShader(const std::string& path)
 	//compilem el shader
 	glCompileShader(vertexShader);
 
-
+	ShaderRef = &vertexShader;
 	
 	//verifiquem la compilacio del shader
 	GLint succes;
@@ -27,7 +27,7 @@ void VertexShader::loadVertexShader(const std::string& path)
 
 
 	if (succes) {
-		SetShader(&vertexShader);
+		SetShader(ShaderRef);
 	}
 	else {
 		std::cout << " error de carga!!" << std::endl;

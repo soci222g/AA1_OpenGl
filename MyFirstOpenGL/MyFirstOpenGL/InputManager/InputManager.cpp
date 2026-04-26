@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "../TimeManager/TimeManager.h"
 
 void InputManager::handleKeyInput(int key)
 {
@@ -6,12 +7,12 @@ void InputManager::handleKeyInput(int key)
 		paused = !paused;
 	}
 	else if (key == GLFW_KEY_UP) {
-		speedMultiplier += 0.1f;
+		TIME.SetMultiplayerSpeed(0.1f);
 	}
 	else if (key == GLFW_KEY_DOWN) {
-		speedMultiplier -= 0.1f;
-		if (speedMultiplier < 0.1f) {
-			speedMultiplier = 0.1f;
+		TIME.SetMultiplayerSpeed(-0.1f);
+		if (TIME.GetMultiplayerSpeed() < 0.1f) {
+			TIME.SetMultiplayerSpeed(0.1f);
 		}
 	}
 	else if (key == GLFW_KEY_ESCAPE) {

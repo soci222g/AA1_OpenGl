@@ -64,4 +64,6 @@ void Cube::Update(float dt)
 	if (rotation.y >= 360.f) {
 		rotation.y -= 360.f;
 	}
+
+
 }

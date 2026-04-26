@@ -7,267 +7,13 @@
 #include<string>
 #include<fstream>
 #include<vector>
+#include "GameManager.h"
+#include "Aplication/Aplication.h"
+#include "TimeManager/TimeManager.h"
 
 
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
 
-
-struct ShaderProgram
-{
-	GLuint vertexShader = 0;
-	GLuint geometryShader = 0;
-	GLuint fragmentShader = 0;
-
-};
-
-
-struct GameObjects
-{
-	glm::vec3 position = glm::vec3(0.f);
-	glm::vec3 rotation = glm::vec3(0.f);
-	glm::vec3 scale = glm::vec3(0.f);
-
-
-	glm::vec3 forward = glm::vec3(1.f,0.f,0.f);
-	glm::vec3 Up = glm::vec3(0.f,1.f,0.f);
-
-	float velocity = 0.01f;
-	float angularVelocity = 1;
-
-
-
-
-};
-
-void ResizeWindow(GLFWwindow* window, int iNewFrameBufferWidth, int iNewFrameBufferHeight) {
-	//definir nou tamany
-	glViewport(0, 0, iNewFrameBufferWidth, iNewFrameBufferHeight);
-
-}
-
-glm::mat4 GenerateTranslationMatrix(glm::vec3 translation) {
-	return glm::translate(glm::mat4(1.0f), translation);
-
-}
-glm::mat4 GenerateRotationMatrix(glm::vec3 axi, float fdegrees) {
-	return glm::rotate(glm::mat4(1.0f), glm::radians(fdegrees), glm::normalize(axi));
-
-}
-
-
-
-
-std::string LoadPath(const std::string& filePath) {
-
-	std::ifstream file(filePath);
-	std::string fileContet;
-	std::string line;
-
-
-	if (!file.is_open()) {
-		std::cout << "error de llegir el archiu puto " << filePath << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
-
-	while (std::getline(file, line))
-	{
-		fileContet += line + "\n";
-	}
-	file.close();
-
-	return fileContet;
-}
-
-GLuint loadFragmentShader(const std::string& path) {
-
-	GLuint FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	std::string sShaderCode = LoadPath(path);
-	const char* cShaderSource = sShaderCode.c_str();
-
-
-	//vinculem a la targeta grafica  (el 1 es el numero de archius que composan el shaders)
-	glShaderSource(FragmentShader, 1, &cShaderSource, nullptr);
-
-
-	//compilem el shader
-	glCompileShader(FragmentShader);
-
-	//verifiquem la compilacio del shader
-	GLint succes;
-	glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &succes);
-
-
-	if (succes) {
-		return FragmentShader;
-	}
-	else {
-		std::cout << " error de carga!!" << std::endl;
-		//primer he,m de saver la longitut del error
-		GLint logLenght;
-		glGetShaderiv(FragmentShader, GL_INFO_LOG_LENGTH, &logLenght);
-
-
-		//get the log
-		std::vector<GLchar> errorlog(logLenght);
-		glGetShaderInfoLog(FragmentShader, logLenght, nullptr, errorlog.data());
-
-		//mostrem el log
-
-		std::cout << errorlog.data() << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
-}
-
-GLuint loadGeometryShader(const std::string& path) {
-
-	GLuint GeometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-
-	std::string sShaderCode = LoadPath(path);
-	const char* cShaderSource = sShaderCode.c_str();
-
-
-	//vinculem a la targeta grafica  (el 1 es el numero de archius que composan el shaders)
-	glShaderSource(GeometryShader, 1, &cShaderSource, nullptr);
-
-
-	//compilem el shader
-	glCompileShader(GeometryShader);
-
-	//verifiquem la compilacio del shader
-	GLint succes;
-	glGetShaderiv(GeometryShader, GL_COMPILE_STATUS, &succes);
-
-
-	if (succes) {
-		return GeometryShader;
-	}
-	else {
-		std::cout << " error de carga!!" << std::endl;
-		//primer he,m de saver la longitut del error
-		GLint logLenght;
-		glGetShaderiv(GeometryShader, GL_INFO_LOG_LENGTH, &logLenght);
-
-
-		//get the log
-		std::vector<GLchar> errorlog(logLenght);
-		glGetShaderInfoLog(GeometryShader, logLenght, nullptr, errorlog.data());
-
-		//mostrem el log
-
-		std::cout << errorlog.data() << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
-}
-
-GLuint loadVertexShader(const std::string& path) {
-
-	//creat vertex shader a la GPU
-
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-	//load in memeori the shader
-
-	std::string sShaderCode = LoadPath(path);
-	const char* cShaderSource = sShaderCode.c_str();
-
-	//vinculem a la targeta grafica  (el 1 es el numero de archius que composan el shaders)
-	glShaderSource(vertexShader, 1, &cShaderSource, nullptr);
-
-
-	//compilem el shader
-	glCompileShader(vertexShader);
-
-	//verifiquem la compilacio del shader
-	GLint succes;
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &succes);
-
-
-	if (succes) {
-		return vertexShader;
-	}
-	else {
-		std::cout << " error de carga!!" << std::endl;
-		//primer he,m de saver la longitut del error
-		GLint logLenght;
-		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLenght);
-
-
-		//get the log
-		std::vector<GLchar> errorlog(logLenght);
-		glGetShaderInfoLog(vertexShader, logLenght, nullptr, errorlog.data());
-
-		//mostrem el log
-
-		std::cout << errorlog.data() << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
-}
-
-
-GLuint CreateProgram(const ShaderProgram& shader) {
-
-	//creamos programa
-
-	GLuint program = glCreateProgram();
-
-	//verifiquem si hi ha un vertex shader o no
-	if (shader.vertexShader != 0) {
-		glAttachShader(program, shader.vertexShader);
-	}
-	if (shader.geometryShader != 0) {
-		glAttachShader(program, shader.geometryShader);
-	}
-	if (shader.fragmentShader != 0) {
-		glAttachShader(program, shader.fragmentShader);
-	}
-
-	//Linkear el programa
-	glLinkProgram(program);
-
-	//comprobem estat del programa
-
-	GLint succes;
-	glGetProgramiv(program, GL_LINK_STATUS, &succes);
-
-	if (succes) {
-		//llibarem recursos
-		if (shader.vertexShader != 0) {
-			glDetachShader(program, shader.vertexShader);
-
-		}
-		if (shader.geometryShader != 0) {
-			glDetachShader(program, shader.geometryShader);
-
-		}
-		if (shader.fragmentShader != 0) {
-			glDetachShader(program, shader.fragmentShader);
-
-		}
-
-		return program;
-	}
-	else {
-		std::cout << " error del programa!!" << std::endl;
-		//pillem el lenght del log
-		GLint logLenght;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLenght);
-
-		//guardem el log
-		std::vector<GLchar> errorlog(logLenght);
-		glGetProgramInfoLog(program, logLenght, nullptr, errorlog.data());
-
-
-		//el printagem i surtim del programa
-		std::cout << errorlog.data() << std::endl;
-		std::exit(EXIT_FAILURE);
-	}
-
-
-}
-
-void main() {
+/*void main() {
 
 	srand(time(NULL));
 
@@ -558,6 +304,28 @@ void main() {
 
 
 }
+*/
+
+void main() {
+
+	GameManager gameManager;
+	gameManager.Initialize();
+	gameManager.LoadGame();
+	while (gameManager.IsRunning()) {
+		TIME.Update();
+		gameManager.Update(TIME.GetDeltaTime());
+		gameManager.Render();
+	}
+	gameManager.Cleanup();
+
+
+
+	return;
+
+
+
+}
+
 
 
 
