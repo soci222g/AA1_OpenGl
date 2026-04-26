@@ -11,7 +11,7 @@ private:
 	float minScale = 0.3f;
 	float maxScale = 1.0f;
 	bool scalingDown = true;
-	float scaleSpeed = 0.5f;
+	float scaleSpeed = 0.1f;
 
 		ShaderProgram* shaderProgram;
 

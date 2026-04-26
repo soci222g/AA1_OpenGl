@@ -70,6 +70,8 @@ void Cuboid::Update(float dt)
 	// rotar sobre l'eix z
 	rotation = rotation + Right * angularVelocity * dt;
 
+	UpdateScale(dt);
+
 	// escalar de maxim a minim i tornar
 	shaderProgram->UnuseProgram();
 }

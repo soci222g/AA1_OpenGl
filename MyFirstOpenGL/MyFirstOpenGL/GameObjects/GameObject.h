@@ -19,8 +19,8 @@ protected:
 	glm::vec3 Up = glm::vec3(0.f, 1.f, 0.f);
 	glm::vec3 Right = glm::vec3(0.f, 0.f, 1.f);
 
-	float velocity = 0.01f;
-	float angularVelocity = 1;
+	float velocity = 0.1f;
+	float angularVelocity = 10;
 
 	GLuint vertexBufferObject = 0;
 	GLuint colorBufferObject = 0;

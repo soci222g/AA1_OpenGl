@@ -9,13 +9,6 @@ private:
 
 	ShaderProgram* shaderProgram;
 
-
-	glm::vec3 colors[3] = {
-		glm::vec3(1.f, 0.f, 0.f),  // Red
-		glm::vec3(0.f, 1.f, 0.f),  // Green
-		glm::vec3(0.f, 0.f, 1.f)   // Blue
-	};
-
 	bool movingUp = true;
 	const float maxHeight = 0.5f;
 	const float minHeight = -0.5f;
