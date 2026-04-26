@@ -56,23 +56,13 @@ void GameManager::Initialize()
 
 
 
-	shaderProgram = new ShaderProgram();
-
-	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
-	shaderProgram->loadProgram();
-
-	shaderProgram->UseProgram();
-	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
-	shaderProgram->UnuseProgram();
 
 	std::cout << "Inicializacion completada" << std::endl;
 }
 
 void GameManager::LoadGame()
 {
-	shaderProgram->UseProgram();
+	
 
 	// crear geometries i afegirles a la llista
 	Cube* cube = new Cube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
@@ -87,7 +77,7 @@ void GameManager::LoadGame()
 	pyramid->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(pyramid);
 
-	shaderProgram->UnuseProgram();
+
 
 }
 
@@ -119,7 +109,7 @@ void GameManager::Render()
 	// cleanejar el buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	shaderProgram->UseProgram();
+	
 
 	// calcular la matriu de cada objecte i renderitzarla
 	for (auto& obj : gameObjects) {
@@ -130,7 +120,7 @@ void GameManager::Render()
 		modelMatrix = modelMatrix * obj->GenerateRotationMatrix(glm::vec3(0.f, 0.f, 1.f), obj->GetRotation().z);
 		modelMatrix = modelMatrix * obj->GenerateScaleMatrix(obj->GetScale());
 
-		glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(obj->GetProgram()->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 		obj->Render(vertexArrayObject);
 	}
@@ -141,7 +131,6 @@ void GameManager::Render()
 
 void GameManager::Cleanup()
 {
-	shaderProgram->UnuseProgram();
 	glfwTerminate();
 }
 

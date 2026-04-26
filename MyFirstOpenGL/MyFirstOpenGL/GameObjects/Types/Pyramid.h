@@ -8,6 +8,10 @@ private:
 	float colorTimer = 0.f;
 	const float colorInterval = 2.f;  // 2 segons per cada canvi de color
 
+
+	ShaderProgram* shaderProgram;
+
+
 	glm::vec3 colors[3] = {
 		glm::vec3(1.f, 0.f, 0.f),  // Red
 		glm::vec3(0.f, 1.f, 0.f),  // Green

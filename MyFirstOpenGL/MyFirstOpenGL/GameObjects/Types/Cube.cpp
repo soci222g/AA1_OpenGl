@@ -1,5 +1,8 @@
 #include "Cube.h"
 
+
+
+
 void Cube::SetupGeometry(GLuint VAO)
 {
 
@@ -39,10 +42,43 @@ void Cube::SetupGeometry(GLuint VAO)
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+
+
+
+
+	//shaders
+	shaderProgram = new ShaderProgram();
+	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
+	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->loadProgram();
+
+	shaderProgram->UseProgram();
+	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
+	shaderProgram->UnuseProgram();
+
+
 }
 
 void Cube::Update(float dt)
 {
+	//glm::mat4 matrix = glm::mat4(1.0f);
+
+	//float positionY = position.y;
+	//	
+	//if (movingUp) {
+	//	positionY += velocity * dt;
+	//
+	//}
+	//else {
+	//	positionY -= velocity * dt;
+	//}
+	////llamar al transform del shader i pasarle la matriu de transformacio
+
+
+
+
 	// moure amunt i avall
 	if (movingUp) {
 		position.y += velocity * dt;

@@ -2,7 +2,9 @@
 #include <glm.hpp>
 #include <GL/glew.h>
 #include <ext/matrix_transform.hpp>
-
+#include "../shader/ShaderProgram.h"
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480
 
 class GameObject
 {
@@ -21,12 +23,15 @@ protected:
 	GLuint vertexBufferObject = 0;
 	GLuint colorBufferObject = 0;
 	int vertexCount = 0;
-
+	ShaderProgram* shaderProgram;
 
 public:
 
-	GameObject() : position(glm::vec3(0.f)), rotation(glm::vec3(0.f)), scale(glm::vec3(1.f)) {}
-	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 sca) : position(pos), rotation(rot), scale(sca) {}
+
+	ShaderProgram* GetProgram() const { return shaderProgram; }
+
+	GameObject() : position(glm::vec3(0.f)), rotation(glm::vec3(0.f)), scale(glm::vec3(1.f)), shaderProgram(new ShaderProgram) {}
+	GameObject(glm::vec3 pos, glm::vec3 rot, glm::vec3 sca) : position(pos), rotation(rot), scale(sca), shaderProgram(new ShaderProgram) {}
 	virtual ~GameObject() = default;
 
 	glm::mat4 GenerateTranslationMatrix(glm::vec3 translation);

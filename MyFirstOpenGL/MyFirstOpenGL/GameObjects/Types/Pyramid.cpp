@@ -29,10 +29,28 @@ void Pyramid::SetupGeometry(GLuint VAO)
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+
+
+
+
+
+	//shaders
+	shaderProgram = new ShaderProgram();
+	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
+	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->loadProgram();
+
+	shaderProgram->UseProgram();
+	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
+	shaderProgram->UnuseProgram();
 }
 
 void Pyramid::Update(float dt)
 {
+	shaderProgram->UseProgram();
+
 	// moure amunt i avall
 	if (movingUp) {
 		position.y += velocity * dt;
@@ -60,6 +78,7 @@ void Pyramid::Update(float dt)
 
 	// cambia de color cada 2 segons
 	UpdateColor(dt);
+	shaderProgram->UseProgram();
 }
 
 void Pyramid::UpdateColor(float dt)

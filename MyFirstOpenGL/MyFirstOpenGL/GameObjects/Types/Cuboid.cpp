@@ -44,11 +44,29 @@ void Cuboid::SetupGeometry(GLuint VAO)
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+
+
+
+
+	//shaders
+	shaderProgram = new ShaderProgram();
+	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
+	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->loadProgram();
+
+	shaderProgram->UseProgram();
+	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
+	shaderProgram->UnuseProgram();
+
+
 }
 
 
 void Cuboid::Update(float dt)
 {
+	shaderProgram->UseProgram();
 	// rotar sobre l'eix z
 	rotation.z += angularVelocity * dt;
 	if (rotation.z >= 360.f) {
@@ -57,6 +75,7 @@ void Cuboid::Update(float dt)
 
 	// escalar de maxim a minim i tornar
 	UpdateScale(dt);
+	shaderProgram->UnuseProgram();
 }
 
 void Cuboid::UpdateScale(float dt)

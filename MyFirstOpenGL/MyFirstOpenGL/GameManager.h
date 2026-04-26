@@ -13,7 +13,6 @@ class GameManager
 private:
 	GLFWwindow* window = nullptr;
 	std::vector<GameObject*> gameObjects;
-	ShaderProgram* shaderProgram;
 	InputManager inputManager;
 	GLuint vertexArrayObject = 0;
 
