@@ -3,19 +3,23 @@
 
 void InputManager::handleKeyInput(int key)
 {
-	if (key == GLFW_KEY_SPACE) {
+	if (isPressed(key)) {
 		paused = !paused;
 	}
-	else if (key == GLFW_KEY_UP) {
+
+
+
+	if (isPressed(key)) {
 		TIME.SetMultiplayerSpeed(0.1f);
 	}
-	else if (key == GLFW_KEY_DOWN) {
+	else if (isPressed(key)) {
 		TIME.SetMultiplayerSpeed(-0.1f);
 		if (TIME.GetMultiplayerSpeed() < 0.1f) {
 			TIME.SetMultiplayerSpeed(0.1f);
 		}
 	}
-	else if (key == GLFW_KEY_ESCAPE) {
+
+	 if (isPressed(key)) {
 		glfwSetWindowShouldClose(glfwGetCurrentContext(), GL_TRUE);
 	}
 }

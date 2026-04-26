@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Aplication\Aplication.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Types\Cube.cpp" />
@@ -39,7 +38,6 @@
     <None Include="MyFistVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aplication\Aplication.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Types\Cube.h" />

@@ -8,7 +8,6 @@ public:
 	VertexShader() : Shader() {};
 
 	void loadVertexShader(const std::string& path);
-private:
-	GLuint* ShaderRef;
+
 };
 

@@ -7,14 +7,14 @@ void ShaderProgram::loadProgram()
 	GLuint program = glCreateProgram();
 
 	//verifiquem si hi ha un vertex shader o no
-	if (_vertexShader.GetShader() != 0) {
-		glAttachShader(program, _vertexShader.GetShader());
+	if (_vertexShader->GetShader() != 0) {
+		glAttachShader(program, _vertexShader->GetShader());
 	}
-	if (_geometryShader.GetShader() != 0) {
-		glAttachShader(program, _geometryShader.GetShader());
+	if (_geometryShader->GetShader() != 0) {
+		glAttachShader(program, _geometryShader->GetShader());
 	}
-	if (_fragmentShader.GetShader() != 0) {
-		glAttachShader(program, _fragmentShader.GetShader());
+	if (_fragmentShader->GetShader() != 0) {
+		glAttachShader(program, _fragmentShader->GetShader());
 	}
 
 	//Linkear el programa
@@ -27,17 +27,16 @@ void ShaderProgram::loadProgram()
 
 	if (succes) {
 		//llibarem recursos
-		if (_vertexShader.GetShader() != 0) {
-			glDetachShader(program, _vertexShader.GetShader());
+		if (_vertexShader->GetShader() != 0) {
+			glDetachShader(program, _vertexShader->GetShader());
 
 		}
-		if (_vertexShader.GetShader() != 0) {
-			glDetachShader(program, _vertexShader.GetShader());
+		if (_geometryShader->GetShader() != 0) {
+			glDetachShader(program, _geometryShader->GetShader());
 
 		}
-		if (_vertexShader.GetShader() != 0) {
-			glDetachShader(program, _vertexShader.GetShader());
-
+		if (_fragmentShader->GetShader() != 0) {
+			glDetachShader(program, _fragmentShader->GetShader());
 		}
 
 		Program = program;

@@ -21,7 +21,7 @@ void GeometryShader::loadGeometryShader(const std::string& path)
 
 
 	if (succes) {
-		SetShader(&GeometryShader);
+		SetShader(GeometryShader);
 	}
 	else {
 		std::cout << " error de carga!!" << std::endl;

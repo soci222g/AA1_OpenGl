@@ -27,7 +27,7 @@ void VertexShader::loadVertexShader(const std::string& path)
 
 
 	if (succes) {
-		SetShader(&vertexShader);
+		SetShader(vertexShader);
 	}
 	else {
 		std::cout << " error de carga!!" << std::endl;
