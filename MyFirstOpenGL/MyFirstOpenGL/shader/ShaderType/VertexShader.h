@@ -5,6 +5,8 @@ class VertexShader : public Shader
 {
 public:
 
+	VertexShader() : Shader() {};
+
 	void loadVertexShader(const std::string& path);
 
 };

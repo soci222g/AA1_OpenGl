@@ -13,10 +13,13 @@ class GameManager
 private:
 	GLFWwindow* window = nullptr;
 	std::vector<GameObject*> gameObjects;
-	ShaderProgram* shaderProgram;
 	InputManager inputManager;
+	GLuint vertexArrayObject = 0;
 
-	unsigned int lastFrameTime = 0;
+
+
+
+	void CreateWindow(int width, int height, const char* title);
 
 public:
 	GameManager() = default;
@@ -28,10 +31,7 @@ public:
 	void Render();
 	void Cleanup();
 	bool IsRunning() const { return !glfwWindowShouldClose(window); }
-	void CreateWindow(int width, int height, const char* title);
 	GLFWwindow* GetWindow() const { return window; }
-	void ResizeWindow(GLFWwindow* window, int iNewFrameBufferWidth, int iNewFrameBufferHeight);
 
-	unsigned int GetLastFrameTime() const { return lastFrameTime; }
-	void SetLastFrameTime(unsigned int time) { lastFrameTime = time; }
+
 };

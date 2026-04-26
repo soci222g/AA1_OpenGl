@@ -25,7 +25,6 @@
     <ClCompile Include="GameObjects\Types\Cuboid.cpp" />
     <ClCompile Include="GameObjects\Types\Pyramid.cpp" />
     <ClCompile Include="InputManager\InputManager.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="shader\Shader.cpp" />
     <ClCompile Include="shader\ShaderProgram.cpp" />
     <ClCompile Include="shader\ShaderType\FragmentShader.cpp" />
@@ -34,12 +33,12 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FragmentShaderTimer.glsl" />
     <None Include="MyFirstFragmentShader.glsl" />
     <None Include="MyFirstGeometryShader.glsl" />
     <None Include="MyFistVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aplication\Aplication.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="GameObjects\Types\Cube.h" />

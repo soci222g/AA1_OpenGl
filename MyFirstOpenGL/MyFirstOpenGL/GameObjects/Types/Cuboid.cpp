@@ -1,13 +1,12 @@
 #include "Cuboid.h"
 
-void Cuboid::SetupGeometry()
+void Cuboid::SetupGeometry(GLuint VAO)
 {
 	// VAO
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
+
 
 	// VBOs
-	glGenBuffers(1, &vertexBufferObject);
+	glGenBuffers(2, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat w = width / 2.0f;
@@ -36,7 +35,7 @@ void Cuboid::SetupGeometry()
 		w, -h, -d
 	};
 
-	vertexCount = 14;
+	vertexCount = 15;
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -45,20 +44,51 @@ void Cuboid::SetupGeometry()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+
+
+
+
+	//shaders
+	shaderProgram = new ShaderProgram();
+	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
+	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->loadProgram();
+
+	shaderProgram->UseProgram();
+	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
+	shaderProgram->UnuseProgram();
+
+
 }
 
 
 void Cuboid::Update(float dt)
 {
+	shaderProgram->UseProgram();
 	// rotar sobre l'eix z
-	rotation.z += angularVelocity * dt;
-	if (rotation.z >= 360.f) {
-		rotation.z -= 360.f;
-	}
+	rotation = rotation + Right * angularVelocity * dt;
 
 	// escalar de maxim a minim i tornar
-	UpdateScale(dt);
+	shaderProgram->UnuseProgram();
 }
+
+void Cuboid::ShaderMatriux()
+{
+	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	glm::mat4 translationMatrix = GenerateTranslationMatrix(position);
+	glm::mat4 rotationMatrix = GenerateRotationMatrix(glm::vec3(0.f, 0.f, 1.f), rotation.z);
+	glm::mat4 scaleMatrix = GenerateScaleMatrix(scale);
+
+
+
+	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix * modelMatrix;
+
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+}
+
+
 
 void Cuboid::UpdateScale(float dt)
 {

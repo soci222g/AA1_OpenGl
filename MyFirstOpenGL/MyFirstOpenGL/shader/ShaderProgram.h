@@ -6,25 +6,28 @@
 
 class ShaderProgram {
 private:
-	VertexShader _vertexShader;
-	GeometryShader _geometryShader;
-	FragmentShader _fragmentShader;
+	VertexShader* _vertexShader;
+	GeometryShader* _geometryShader;
+	FragmentShader* _fragmentShader;
 
 	GLuint Program;
 
 public:
-	ShaderProgram() = default;
-	~ShaderProgram() = default;
+	ShaderProgram() : _vertexShader(new VertexShader()), _geometryShader(new GeometryShader()), _fragmentShader(new FragmentShader()), Program(0) {}
+	~ShaderProgram() {
+		delete _vertexShader;
+		delete _geometryShader;
+		delete _fragmentShader;
+	}
 
 
 	void loadProgram();
 	void UseProgram() const { glUseProgram(Program); }
 	void UnuseProgram() const { glUseProgram(0); }
 
-	GLuint GetProgram() const { return Program; }
-	void SetProgram(GLuint program) { Program = program; }	
-	VertexShader GetVertexShader() const { return _vertexShader; }
-	GeometryShader GetGeometryShader() const { return _geometryShader; }
-	FragmentShader GetFragmentShader() const { return _fragmentShader; }
+	GLuint GetProgram()  { return Program; }
+	VertexShader* GetVertexShader() { return _vertexShader; }
+	GeometryShader* GetGeometryShader()  { return _geometryShader; }
+	FragmentShader* GetFragmentShader()  { return _fragmentShader; }
 
 };

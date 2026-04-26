@@ -1,38 +1,34 @@
 #include "Cube.h"
 
-void Cube::SetupGeometry()
+
+
+
+void Cube::SetupGeometry(GLuint VAO)
 {
-	// VAOs
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
+
 
 	// VBOs
 	glGenBuffers(1, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat vertices[] = {
-		// front
-		-0.5f,  0.5f, -0.5f,
-		0.5f,  0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		// right
-		0.5f,  0.5f, -0.5f,
-		0.5f,  0.5f,  0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f,  0.5f,
-		// top
-		-0.5f,  0.5f, -0.5f,
-		-0.5f,  0.5f,  0.5f,
-		0.5f,  0.5f, -0.5f,
-		0.5f,  0.5f,  0.5f,
-		// bottom
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f,  0.5f,
-		0.5f, -0.5f, -0.5f
+				-0.3f,0.3f,-0.3f,
+				0.3f,0.3f, -0.3f,
+				-0.3f,-0.3f, -0.3f,
+				0.3f,-0.3f,-0.3f,
+				0.3f,-0.3f,0.3f,
+				0.3f,0.3f, -0.3f,
+				0.3f,0.3f,0.3f,
+				-0.3f,0.3f,-0.3f,
+				-0.3f,0.3f,0.3f,
+				-0.3f,-0.3f, -0.3f,
+				-0.3f,-0.3f, 0.3f,
+				0.3f,-0.3f,0.3f,
+				-0.3f,0.3f,0.3f,
+				0.3f,0.3f,0.3f
 	};
 
-	vertexCount = 14;
+	vertexCount = 15;
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -41,27 +37,64 @@ void Cube::SetupGeometry()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+
+
+
+
+	//shaders
+	shaderProgram = new ShaderProgram();
+	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
+	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->loadProgram();
+
+	shaderProgram->UseProgram();
+	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
+	shaderProgram->UnuseProgram();
+
+
 }
 
 void Cube::Update(float dt)
 {
-	// moure amunt i avall
+	shaderProgram->UseProgram();
+
 	if (movingUp) {
-		position.y += velocity * dt;
+		position = position + Up * velocity * dt;
+
 		if (position.y >= maxHeight) {
 			movingUp = false;
 		}
 	}
 	else {
-		position.y -= velocity * dt;
+		position = position - Up * velocity * dt;
 		if (position.y <= minHeight) {
 			movingUp = true;
 		}
 	}
 
+
+	rotation = rotation + Up * angularVelocity* dt;
+
 	// rotar sobre l'eix y
-	rotation.y += angularVelocity * dt;
-	if (rotation.y >= 360.f) {
-		rotation.y -= 360.f;
-	}
+	
+
+	shaderProgram->UnuseProgram();
+}
+
+void Cube::ShaderMatriux()
+{
+	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	glm::mat4 translationMatrix = GenerateTranslationMatrix(position);
+	glm::mat4 rotationMatrix = GenerateRotationMatrix(glm::vec3(0.f, 1.f, 0.f), rotation.y);
+	glm::mat4 scaleMatrix = GenerateScaleMatrix(scale);
+
+
+
+	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix * modelMatrix;
+
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+
 }

@@ -17,9 +17,13 @@ void VertexShader::loadVertexShader(const std::string& path)
 	//compilem el shader
 	glCompileShader(vertexShader);
 
+
+	
 	//verifiquem la compilacio del shader
 	GLint succes;
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &succes);
+
+
 
 
 	if (succes) {
