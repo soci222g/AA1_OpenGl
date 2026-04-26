@@ -75,7 +75,7 @@ void Cube::Update(float dt)
 	}
 
 
-	rotation = rotation + Up * angularVelocity * dt;
+	rotation = rotation + Up * angularVelocity* dt;
 
 	// rotar sobre l'eix y
 	

@@ -39,7 +39,7 @@ void Pyramid::SetupGeometry(GLuint VAO)
 	shaderProgram = new ShaderProgram();
 	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
 	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("FragmentShaderTimer.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
@@ -79,7 +79,7 @@ void Pyramid::Update(float dt)
 	}
 
 	// cambia de color cada 2 segons
-	shaderProgram->UnuseProgram();
+	shaderProgram->UseProgram();
 }
 
 void Pyramid::ShaderMatriux()
