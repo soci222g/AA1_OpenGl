@@ -39,13 +39,12 @@ void Pyramid::SetupGeometry(GLuint VAO)
 	shaderProgram = new ShaderProgram();
 	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
 	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("FragmentShaderTimer.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
 
-		glUniform1f(glGetUniformLocation(shaderProgram->GetProgram(), "Timer"), colorTimer);
-
+	glUniform1f(glGetUniformLocation(shaderProgram->GetProgram(), "Timer"), colorTimer);
 	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
 	shaderProgram->UnuseProgram();
 }
@@ -55,22 +54,22 @@ void Pyramid::Update(float dt)
 	shaderProgram->UseProgram();
 
 	if (movingUp) {
-		position = position + Up * velocity;
+		position = position + Up * velocity * dt;
 		
 		if (position.y >= maxHeight) {
 			movingUp = false;
 		}
 	}
 	else {
-		position = position - Up * velocity;
+		position = position - Up * velocity * dt;
 		if (position.y <= minHeight) {
 			movingUp = true;
 		}
 	}
 
 	// rotar eixos x i y
-	rotation = rotation + Up * angularVelocity;
-	rotation = rotation + forward * angularVelocity;
+	rotation = rotation + Up * angularVelocity* dt;
+	rotation = rotation + forward * angularVelocity * dt;
 
 
 
@@ -80,7 +79,7 @@ void Pyramid::Update(float dt)
 	}
 
 	// cambia de color cada 2 segons
-	shaderProgram->UseProgram();
+	shaderProgram->UnuseProgram();
 }
 
 void Pyramid::ShaderMatriux()

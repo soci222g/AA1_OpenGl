@@ -12,7 +12,7 @@ public:
 	InputManager() = default;
 	~InputManager() = default;
 
-	void handleKeyInput(int key);
-	bool isPressed(int key) const { return keyStates[key]; }
+	void handleKeyInput(int key, GLFWwindow* window);
+	bool isPressed(int key, GLFWwindow* window) const { return glfwGetKey(window, key) == GLFW_PRESS; }
 	bool isPaused() const { return paused; }
 };

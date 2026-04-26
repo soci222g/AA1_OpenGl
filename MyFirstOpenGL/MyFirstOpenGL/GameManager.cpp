@@ -87,10 +87,12 @@ void GameManager::Update(float dt)
 	glfwPollEvents();
 
 	// handle input
-	inputManager.handleKeyInput(GLFW_KEY_SPACE);
-	inputManager.handleKeyInput(GLFW_KEY_UP);
-	inputManager.handleKeyInput(GLFW_KEY_DOWN);
-	inputManager.handleKeyInput(GLFW_KEY_ESCAPE);
+	inputManager.handleKeyInput(GLFW_KEY_SPACE, window);
+	inputManager.handleKeyInput(GLFW_KEY_M, window);
+	inputManager.handleKeyInput(GLFW_KEY_N, window);
+
+
+	//faltan inputs numerics
 
 	// actualitzar objectes tenint en compte el speed multiplier
 	float adjustedDt = dt;

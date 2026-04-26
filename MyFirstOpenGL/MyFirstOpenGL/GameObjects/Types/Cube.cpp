@@ -61,21 +61,21 @@ void Cube::Update(float dt)
 	shaderProgram->UseProgram();
 
 	if (movingUp) {
-		position = position + Up * velocity ;
+		position = position + Up * velocity * dt;
 
 		if (position.y >= maxHeight) {
 			movingUp = false;
 		}
 	}
 	else {
-		position = position - Up * velocity;
+		position = position - Up * velocity * dt;
 		if (position.y <= minHeight) {
 			movingUp = true;
 		}
 	}
 
 
-	rotation = rotation + Up * angularVelocity;
+	rotation = rotation + Up * angularVelocity * dt;
 
 	// rotar sobre l'eix y
 	
