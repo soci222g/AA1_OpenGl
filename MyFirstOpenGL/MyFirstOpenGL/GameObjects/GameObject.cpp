@@ -16,9 +16,9 @@ glm::mat4 GameObject::GenerateScaleMatrix(glm::vec3 scale)
 	return glm::scale(glm::mat4(1.0f), scale);
 }
 
-void GameObject::Render()
+void GameObject::Render(GLuint VAO)
 {
-    glBindVertexArray(vertexArrayObject);
+    glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
     glBindVertexArray(0);
 }

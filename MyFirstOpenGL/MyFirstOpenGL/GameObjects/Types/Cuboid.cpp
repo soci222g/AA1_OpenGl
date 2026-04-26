@@ -1,13 +1,12 @@
 #include "Cuboid.h"
 
-void Cuboid::SetupGeometry()
+void Cuboid::SetupGeometry(GLuint VAO)
 {
 	// VAO
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
+
 
 	// VBOs
-	glGenBuffers(1, &vertexBufferObject);
+	glGenBuffers(2, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat w = width / 2.0f;

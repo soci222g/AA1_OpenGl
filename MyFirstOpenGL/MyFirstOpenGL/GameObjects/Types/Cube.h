@@ -11,6 +11,6 @@ public:
 	Cube() = default;
 	Cube(glm::vec3 pos, glm::vec3 rot, glm::vec3 sca) : GameObject(pos, rot, sca) {}
 
-	void SetupGeometry() override;
+	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
 };

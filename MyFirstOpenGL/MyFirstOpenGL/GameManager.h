@@ -15,6 +15,10 @@ private:
 	std::vector<GameObject*> gameObjects;
 	ShaderProgram* shaderProgram;
 	InputManager inputManager;
+	GLuint vertexArrayObject = 0;
+
+
+
 
 	void CreateWindow(int width, int height, const char* title);
 

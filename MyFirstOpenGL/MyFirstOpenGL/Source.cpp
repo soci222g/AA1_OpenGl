@@ -319,7 +319,8 @@ void main() {
 
 
 
-	return;
+	glfwTerminate();
+
 
 
 

@@ -50,6 +50,12 @@ void GameManager::Initialize()
 
 	// carrega i compila els shaders
 
+	glGenVertexArrays(3, &vertexArrayObject);
+	glBindVertexArray(vertexArrayObject);
+
+
+
+
 	shaderProgram = new ShaderProgram();
 
 	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
@@ -70,15 +76,15 @@ void GameManager::LoadGame()
 
 	// crear geometries i afegirles a la llista
 	Cube* cube = new Cube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
-	cube->SetupGeometry();
+	cube->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(cube);
 
 	Cuboid* cuboid = new Cuboid(glm::vec3(-0.5f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f), 0.5f, 0.3f, 0.2f);
-	cuboid->SetupGeometry();
+	cuboid->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(cuboid);
 
 	Pyramid* pyramid = new Pyramid(glm::vec3(0.5f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
-	pyramid->SetupGeometry();
+	pyramid->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(pyramid);
 
 	shaderProgram->UnuseProgram();
@@ -126,7 +132,7 @@ void GameManager::Render()
 
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-		obj->Render();
+		obj->Render(vertexArrayObject);
 	}
 
 	glFlush();

@@ -1,10 +1,8 @@
 #include "Cube.h"
 
-void Cube::SetupGeometry()
+void Cube::SetupGeometry(GLuint VAO)
 {
-	// VAOs
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
+
 
 	// VBOs
 	glGenBuffers(1, &vertexBufferObject);

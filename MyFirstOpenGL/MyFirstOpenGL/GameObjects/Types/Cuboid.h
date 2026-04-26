@@ -16,7 +16,7 @@ public:
 	Cuboid() = default;
 	Cuboid(glm::vec3 pos, glm::vec3 rot, glm::vec3 sca, float w, float h, float d) : GameObject(pos, rot, sca), width(w), height(h), depth(d) {}
 
-	void SetupGeometry() override;
+	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
 private:
 	void UpdateScale(float dt);

@@ -1,13 +1,11 @@
 #include "Pyramid.h"
 
-void Pyramid::SetupGeometry()
+void Pyramid::SetupGeometry(GLuint VAO)
 {
-	// VAOs
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
+
 
 	// VBOs
-	glGenBuffers(1, &vertexBufferObject);
+	glGenBuffers(3, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat vertices[] = {
