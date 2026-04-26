@@ -22,6 +22,8 @@ public:
 
 	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
+	void ShaderMatriux() override;
+
 private:
 	void UpdateScale(float dt);
 };

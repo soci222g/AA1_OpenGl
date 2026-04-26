@@ -4,9 +4,7 @@
 class Pyramid : public GameObject
 {
 private:
-	int colorIndex = 0;  // 0 = Red, 1 = Green, 2 = Blue
 	float colorTimer = 0.f;
-	const float colorInterval = 2.f;  // 2 segons per cada canvi de color
 
 
 	ShaderProgram* shaderProgram;
@@ -27,7 +25,7 @@ public:
 
 	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
-	void UpdateColor(float dt);
+	void ShaderMatriux() override;
 
-	glm::vec3 GetColor() const { return colors[colorIndex]; }
+
 };

@@ -65,11 +65,11 @@ void GameManager::LoadGame()
 	
 
 	// crear geometries i afegirles a la llista
-	Cube* cube = new Cube(glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
+	Cube* cube = new Cube(glm::vec3(-0.5f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
 	cube->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(cube);
 
-	Cuboid* cuboid = new Cuboid(glm::vec3(-0.5f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f), 0.5f, 0.3f, 0.2f);
+	Cuboid* cuboid = new Cuboid(glm::vec3(0.0f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f), 0.5f, 0.3f, 0.2f);
 	cuboid->SetupGeometry(vertexArrayObject);
 	gameObjects.push_back(cuboid);
 
@@ -113,15 +113,6 @@ void GameManager::Render()
 
 	// calcular la matriu de cada objecte i renderitzarla
 	for (auto& obj : gameObjects) {
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		modelMatrix = obj->GenerateTranslationMatrix(obj->GetPosition());
-		modelMatrix = modelMatrix * obj->GenerateRotationMatrix(glm::vec3(1.f, 1.f, 0.f), obj->GetRotation().y);
-		modelMatrix = modelMatrix * obj->GenerateRotationMatrix(glm::vec3(1.f, 0.f, 0.f), obj->GetRotation().x);
-		modelMatrix = modelMatrix * obj->GenerateRotationMatrix(glm::vec3(0.f, 0.f, 1.f), obj->GetRotation().z);
-		modelMatrix = modelMatrix * obj->GenerateScaleMatrix(obj->GetScale());
-
-		glUniformMatrix4fv(glGetUniformLocation(obj->GetProgram()->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
 		obj->Render(vertexArrayObject);
 	}
 

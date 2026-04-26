@@ -43,6 +43,9 @@ void Pyramid::SetupGeometry(GLuint VAO)
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
+
+		glUniform1f(glGetUniformLocation(shaderProgram->GetProgram(), "Timer"), colorTimer);
+
 	glUniform2f(glGetUniformLocation(shaderProgram->GetProgram(), "WindowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
 	shaderProgram->UnuseProgram();
 }
@@ -51,42 +54,47 @@ void Pyramid::Update(float dt)
 {
 	shaderProgram->UseProgram();
 
-	// moure amunt i avall
 	if (movingUp) {
-		position.y += velocity * dt;
+		position = position + Up * velocity;
+		
 		if (position.y >= maxHeight) {
 			movingUp = false;
 		}
 	}
 	else {
-		position.y -= velocity * dt;
+		position = position - Up * velocity;
 		if (position.y <= minHeight) {
 			movingUp = true;
 		}
 	}
 
 	// rotar eixos x i y
-	rotation.x += angularVelocity * dt;
-	rotation.y += angularVelocity * dt;
+	rotation = rotation + Up * angularVelocity;
+	rotation = rotation + forward * angularVelocity;
 
-	if (rotation.x >= 360.f) {
-		rotation.x -= 360.f;
-	}
-	if (rotation.y >= 360.f) {
-		rotation.y -= 360.f;
+
+
+	colorTimer += dt;
+	if (colorTimer >= 6.0f) {
+		colorTimer = 0.0f;
 	}
 
 	// cambia de color cada 2 segons
-	UpdateColor(dt);
 	shaderProgram->UseProgram();
 }
 
-void Pyramid::UpdateColor(float dt)
+void Pyramid::ShaderMatriux()
 {
-	colorTimer += dt;
+	glm::mat4 modelMatrix = glm::mat4(1.0f);
+	glm::mat4 translationMatrix = GenerateTranslationMatrix(position);
+	glm::mat4 rotationMatrix = GenerateRotationMatrix(glm::vec3(1.f, 1.f, 0.f), rotation.y);
+	glm::mat4 scaleMatrix = GenerateScaleMatrix(scale);
 
-	if (colorTimer >= colorInterval) {
-		colorTimer = 0.f;
-		colorIndex = (colorIndex + 1) % 3;
-	}
+
+
+	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix * modelMatrix;
+
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 }
+
+

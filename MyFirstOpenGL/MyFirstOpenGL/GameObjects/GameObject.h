@@ -2,6 +2,7 @@
 #include <glm.hpp>
 #include <GL/glew.h>
 #include <ext/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 #include "../shader/ShaderProgram.h"
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -16,6 +17,7 @@ protected:
 
 	glm::vec3 forward = glm::vec3(1.f, 0.f, 0.f);
 	glm::vec3 Up = glm::vec3(0.f, 1.f, 0.f);
+	glm::vec3 Right = glm::vec3(0.f, 0.f, 1.f);
 
 	float velocity = 0.01f;
 	float angularVelocity = 1;
@@ -40,6 +42,8 @@ public:
 
 	virtual void SetupGeometry(GLuint VAO) = 0;
 	virtual void Render(GLuint VAO);
+	virtual void ShaderMatriux();
+
 	virtual void Update(float dt) = 0;
 
 	// getters
