@@ -124,6 +124,9 @@ void GameManager::Render()
 
 void GameManager::Cleanup()
 {
+
+
+
 	glfwTerminate();
 }
 

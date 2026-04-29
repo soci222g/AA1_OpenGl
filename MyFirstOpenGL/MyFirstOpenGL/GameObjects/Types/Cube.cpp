@@ -44,9 +44,9 @@ void Cube::SetupGeometry(GLuint VAO)
 
 	//shaders
 	shaderProgram = new ShaderProgram();
-	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->GetVertexShader()->loadVertexShader("MoveGeometiyVertexShader.glsl");
+	//shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("YelowOrangeFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
