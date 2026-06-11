@@ -15,6 +15,8 @@ void main() {
 			TIME.Update();
 			gameManager->Update(TIME.GetDeltaTime());
 			gameManager->Render();
+			TIME.InputHandle();
+			IM->SetCurrentKey(KeyPressed::NONE);
 		}
 	}
 	else {

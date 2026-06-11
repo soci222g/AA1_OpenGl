@@ -63,6 +63,9 @@
     <ClCompile Include="shader\ShaderType\VertexShader.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="TimeManager\TimeManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MoveGeometiyVertexShader.glsl">

@@ -1,4 +1,5 @@
 #include "Cuboid.h"
+#include "../../InputManager/InputManager.h"
 
 void Cuboid::SetupGeometry(GLuint VAO)
 {
@@ -74,6 +75,8 @@ void Cuboid::Update(float dt)
 
 	// escalar de maxim a minim i tornar
 	shaderProgram->UnuseProgram();
+	InputHandle();
+
 }
 
 void Cuboid::ShaderMatriux()
@@ -119,3 +122,11 @@ void Cuboid::UpdateScale(float dt)
 		}
 	}
 }
+
+void Cuboid::InputHandle()
+{
+	if (IM->getCurrentKey() == KeyPressed::THREE) {
+		_rendering = !_rendering;
+	}
+}
+

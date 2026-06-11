@@ -11,6 +11,7 @@ private:
 	float minScale = 0.3f;
 	float maxScale = 1.0f;
 	bool scalingDown = true;
+	bool _rendering = true;
 	float scaleSpeed = 0.1f;
 
 		ShaderProgram* shaderProgram;
@@ -23,7 +24,7 @@ public:
 	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
 	void ShaderMatriux() override;
-
+	void InputHandle() override;
 private:
 	void UpdateScale(float dt);
 };

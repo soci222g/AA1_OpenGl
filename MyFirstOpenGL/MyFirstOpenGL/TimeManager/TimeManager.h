@@ -18,9 +18,17 @@ public:
 	{
 		_currentTime = glfwGetTime();
 		_deltaTime = _currentTime - _lastFrameTime;
-		_deltaTime *= _multiplayerSpeed;	
+		_deltaTime *= _multiplayerSpeed;
+		_deltaTime *= _pause;
 		_lastFrameTime = _currentTime;
+
+
+		
+
 	}
+
+
+	void InputHandle();
 
 	float GetDeltaTime() const { return _deltaTime; }	
 	void SetMultiplayerSpeed(float speed) { _multiplayerSpeed += speed; }
@@ -32,6 +40,7 @@ private:
 	{
 		_lastFrameTime = glfwGetTime();
 		_multiplayerSpeed = 1.f;
+		_pause = 1;
 	}
 	~TimeManager() = default;
 
@@ -41,7 +50,7 @@ private:
 
 	float _multiplayerSpeed;
 
-
+	int _pause;
 	float _lastFrameTime;
 	float _deltaTime;
 	float _currentTime;

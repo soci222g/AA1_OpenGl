@@ -11,6 +11,7 @@ private:
 	
 
 
+
 	GLint offsetpositionReference = 0;
 
 public:
@@ -20,4 +21,6 @@ public:
 	void SetupGeometry(GLuint VAO) override;
 	void Update(float dt) override;
 	void ShaderMatriux() override;	
+
+	void InputHandle() override;
 };

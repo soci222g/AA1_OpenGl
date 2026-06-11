@@ -26,6 +26,7 @@ protected:
 	GLuint colorBufferObject = 0;
 	int vertexCount = 0;
 	ShaderProgram* shaderProgram;
+	bool _rendering = true;
 
 public:
 
@@ -51,4 +52,6 @@ public:
 	glm::vec3 GetRotation() const { return rotation; }
 	glm::vec3 GetScale() const { return scale; }
 	int GetVertexCount() const { return vertexCount; }
+
+	virtual void InputHandle() {}
 };

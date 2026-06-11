@@ -1,4 +1,5 @@
 #include "Pyramid.h"
+#include "../../InputManager/InputManager.h"
 
 void Pyramid::SetupGeometry(GLuint VAO)
 {
@@ -80,6 +81,8 @@ void Pyramid::Update(float dt)
 
 	// cambia de color cada 2 segons
 	shaderProgram->UseProgram();
+
+	InputHandle();
 }
 
 void Pyramid::ShaderMatriux()
@@ -94,6 +97,15 @@ void Pyramid::ShaderMatriux()
 	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix * modelMatrix;
 
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+}
+
+
+
+void Pyramid::InputHandle()
+{
+	if (IM->getCurrentKey() == KeyPressed::FOUR) {
+		_rendering = !_rendering;
+	}
 }
 
 
