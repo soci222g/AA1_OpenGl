@@ -141,6 +141,9 @@ void GameManager::HandleInput()
 		}
 	}
 
+
+
+
 }
 
 void GameManager::CreateWindow(int width, int height, const char* title)

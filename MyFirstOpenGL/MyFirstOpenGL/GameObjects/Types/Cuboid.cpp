@@ -7,7 +7,7 @@ void Cuboid::SetupGeometry(GLuint VAO)
 
 
 	// VBOs
-	glGenBuffers(2, &vertexBufferObject);
+	glGenBuffers(1, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat w = width / 2.0f;
@@ -70,12 +70,13 @@ void Cuboid::Update(float dt)
 	shaderProgram->UseProgram();
 	// rotar sobre l'eix z
 	rotation = rotation + Right * angularVelocity * dt;
+	
+	InputHandle();
 
 	UpdateScale(dt);
 
 	// escalar de maxim a minim i tornar
 	shaderProgram->UnuseProgram();
-	InputHandle();
 
 }
 
@@ -125,8 +126,10 @@ void Cuboid::UpdateScale(float dt)
 
 void Cuboid::InputHandle()
 {
-	if (IM->getCurrentKey() == KeyPressed::THREE) {
+	if (IM->getCurrentKey() == KeyPressed::THREE) 
 		_rendering = !_rendering;
-	}
+
+	
+	
 }
 

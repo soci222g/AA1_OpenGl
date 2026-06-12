@@ -50,7 +50,6 @@ public:
 	void SetCurrentKey(KeyPressed key) { _currentKey = key; }
 
 
-	void handleKeyInput(int key, GLFWwindow* window);
 	bool isPressed(int key, GLFWwindow* window) const { return glfwGetKey(window, key) == GLFW_PRESS; }
 	bool isPaused() const { return paused; }
 };

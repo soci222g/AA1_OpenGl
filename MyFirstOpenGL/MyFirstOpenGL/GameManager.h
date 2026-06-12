@@ -17,7 +17,7 @@ private:
 	GLuint vertexArrayObject = 0;
 
 	bool _fillController = true;
-
+	bool _rendering = true;
 
 	void CreateWindow(int width, int height, const char* title);
 

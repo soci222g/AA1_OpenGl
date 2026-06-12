@@ -6,7 +6,7 @@ void Pyramid::SetupGeometry(GLuint VAO)
 
 
 	// VBOs
-	glGenBuffers(3, &vertexBufferObject);
+	glGenBuffers(1, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat vertices[] = {

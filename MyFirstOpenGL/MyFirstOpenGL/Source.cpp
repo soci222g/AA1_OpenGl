@@ -12,11 +12,13 @@ void main() {
 		gameManager->LoadGame();
 		
 		while (gameManager->IsRunning()) {
+			IM->SetCurrentKey(KeyPressed::NONE);
+			
 			TIME.Update();
 			gameManager->Update(TIME.GetDeltaTime());
 			gameManager->Render();
 			TIME.InputHandle();
-			IM->SetCurrentKey(KeyPressed::NONE);
+			
 		}
 	}
 	else {
