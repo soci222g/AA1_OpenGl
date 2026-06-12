@@ -133,11 +133,11 @@ void GameManager::HandleInput()
 	if(IM->getCurrentKey() == KeyPressed::ONE) {
 		if (_fillController) {
 			_fillController = false;
-			glPolygonMode(GL_FRONT, GL_LINE);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 		else {
 			_fillController = true;
-			glPolygonMode(GL_FRONT, GL_FILL);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 	}
 
