@@ -14,18 +14,7 @@ public:
 	}
 
 
-	void Update()
-	{
-		_currentTime = glfwGetTime();
-		_deltaTime = _currentTime - _lastFrameTime;
-		_deltaTime *= _multiplayerSpeed;
-		_deltaTime *= _pause;
-		_lastFrameTime = _currentTime;
-
-
-		
-
-	}
+	void Update();
 
 
 	void InputHandle();

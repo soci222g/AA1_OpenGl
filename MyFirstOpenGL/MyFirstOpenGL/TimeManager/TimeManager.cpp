@@ -1,6 +1,15 @@
 #include "TimeManager.h"
 #include "../InputManager/InputManager.h"
 
+void TimeManager::Update()
+{
+	_currentTime = glfwGetTime();
+	_deltaTime = _currentTime - _lastFrameTime;
+	_deltaTime *= _multiplayerSpeed;
+	_deltaTime *= _pause;
+	_lastFrameTime = _currentTime;
+}
+
 void TimeManager::InputHandle()
 {
 	if (IM->getCurrentKey() == KeyPressed::SPACE) {
