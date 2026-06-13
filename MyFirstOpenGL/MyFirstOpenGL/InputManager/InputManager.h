@@ -17,7 +17,7 @@ class InputManager
 private:
 
 	bool keyStates[GLFW_KEY_LAST] = {};
-	bool paused = false;
+	bool _paused = false;
 
 
 	KeyPressed _currentKey = KeyPressed::NONE;
@@ -51,5 +51,6 @@ public:
 
 
 	bool isPressed(int key, GLFWwindow* window) const { return glfwGetKey(window, key) == GLFW_PRESS; }
-	bool isPaused() const { return paused; }
+	bool isPaused() const { return _paused; }
+	void SetPaused(bool newState) { _paused = newState; }
 };
