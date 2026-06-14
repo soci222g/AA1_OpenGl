@@ -99,24 +99,20 @@ void Cuboid::ShaderMatriux()
 void Cuboid::UpdateScale(float dt)
 {
 	if (scalingDown) {
-		scale.x -= scaleSpeed * dt;
 		scale.y -= scaleSpeed * dt;
 		scale.z -= scaleSpeed * dt;
 
-		if (scale.x <= minScale) {
-			scale.x = minScale;
+		if (scale.y <= minScale) {
 			scale.y = minScale;
 			scale.z = minScale;
 			scalingDown = false;
 		}
 	}
 	else {
-		scale.x += scaleSpeed * dt;
 		scale.y += scaleSpeed * dt;
 		scale.z += scaleSpeed * dt;
 
-		if (scale.x >= maxScale) {
-			scale.x = maxScale;
+		if (scale.y >= maxScale) {
 			scale.y = maxScale;
 			scale.z = maxScale;
 			scalingDown = true;
