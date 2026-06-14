@@ -16,8 +16,8 @@ private:
 	InputManager inputManager;
 	GLuint vertexArrayObject = 0;
 
-
-
+	bool _fillController = true;
+	bool _rendering = true;
 
 	void CreateWindow(int width, int height, const char* title);
 
@@ -31,6 +31,8 @@ public:
 	void Render();
 	void Cleanup();
 	bool IsRunning() const { return !glfwWindowShouldClose(window); }
+	void HandleInput();
+
 	GLFWwindow* GetWindow() const { return window; }
 
 

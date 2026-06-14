@@ -31,12 +31,13 @@
     <ClCompile Include="shader\ShaderType\GeometryShader.cpp" />
     <ClCompile Include="shader\ShaderType\VertexShader.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TimeManager\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FragmentShaderTimer.glsl" />
-    <None Include="MyFirstFragmentShader.glsl" />
+    <None Include="YelowOrangeFragmentShader.glsl" />
     <None Include="MyFirstGeometryShader.glsl" />
-    <None Include="MyFistVertexShader.glsl" />
+    <None Include="MoveGeometiyVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
