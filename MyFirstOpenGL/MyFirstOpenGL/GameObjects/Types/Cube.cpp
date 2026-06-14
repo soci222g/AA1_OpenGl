@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "../../InputManager/InputManager.h"
 
 
 
@@ -44,9 +45,9 @@ void Cube::SetupGeometry(GLuint VAO)
 
 	//shaders
 	shaderProgram = new ShaderProgram();
-	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->GetVertexShader()->loadVertexShader("MoveGeometiyVertexShader.glsl");
+	//shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("YelowOrangeFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
@@ -81,6 +82,8 @@ void Cube::Update(float dt)
 	
 
 	shaderProgram->UnuseProgram();
+	InputHandle();
+
 }
 
 void Cube::ShaderMatriux()
@@ -97,4 +100,11 @@ void Cube::ShaderMatriux()
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 
+}
+
+void Cube::InputHandle()
+{
+	if(IM->getCurrentKey() == KeyPressed::TWO) {
+		_rendering = !_rendering;
+	}
 }

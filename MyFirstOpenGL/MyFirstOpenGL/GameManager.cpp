@@ -53,7 +53,7 @@ void GameManager::Initialize()
 	glGenVertexArrays(3, &vertexArrayObject);
 	glBindVertexArray(vertexArrayObject);
 
-
+	IM->Init(window);
 
 
 
@@ -62,7 +62,6 @@ void GameManager::Initialize()
 
 void GameManager::LoadGame()
 {
-	
 
 	// crear geometries i afegirles a la llista
 	Cube* cube = new Cube(glm::vec3(-0.5f, 0.f, 0.f), glm::vec3(0.f), glm::vec3(1.f));
@@ -86,13 +85,10 @@ void GameManager::Update(float dt)
 	// poll events
 	glfwPollEvents();
 
-	// handle input
-	inputManager.handleKeyInput(GLFW_KEY_SPACE, window);
-	inputManager.handleKeyInput(GLFW_KEY_M, window);
-	inputManager.handleKeyInput(GLFW_KEY_N, window);
-
 
 	//faltan inputs numerics
+	HandleInput();
+
 
 	// actualitzar objectes tenint en compte el speed multiplier
 	float adjustedDt = dt;
@@ -102,6 +98,7 @@ void GameManager::Update(float dt)
 			obj->Update(adjustedDt);
 		}
 	}
+
 
 
 }
@@ -125,6 +122,28 @@ void GameManager::Render()
 void GameManager::Cleanup()
 {
 	glfwTerminate();
+}
+
+void GameManager::HandleInput()
+{
+	if(IM->getCurrentKey() == KeyPressed::ESCAPE) {
+		glfwSetWindowShouldClose(window, true);
+	}
+
+	if(IM->getCurrentKey() == KeyPressed::ONE) {
+		if (_fillController) {
+			_fillController = false;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else {
+			_fillController = true;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+	}
+
+
+
+
 }
 
 void GameManager::CreateWindow(int width, int height, const char* title)

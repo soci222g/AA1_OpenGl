@@ -19,14 +19,14 @@ glm::mat4 GameObject::GenerateScaleMatrix(glm::vec3 scale)
 
 void GameObject::Render(GLuint VAO)
 {
+    if (_rendering) {
+    ShaderMatriux();
 
-	ShaderMatriux();    
 
-
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
-    glBindVertexArray(0);
-
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
+        glBindVertexArray(0);
+    }
 
 
 

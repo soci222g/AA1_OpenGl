@@ -1,4 +1,5 @@
 #include "Cuboid.h"
+#include "../../InputManager/InputManager.h"
 
 void Cuboid::SetupGeometry(GLuint VAO)
 {
@@ -6,7 +7,7 @@ void Cuboid::SetupGeometry(GLuint VAO)
 
 
 	// VBOs
-	glGenBuffers(2, &vertexBufferObject);
+	glGenBuffers(1, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat w = width / 2.0f;
@@ -51,9 +52,9 @@ void Cuboid::SetupGeometry(GLuint VAO)
 
 	//shaders
 	shaderProgram = new ShaderProgram();
-	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->GetVertexShader()->loadVertexShader("MoveGeometiyVertexShader.glsl");
+	//shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("YelowOrangeFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
@@ -69,11 +70,14 @@ void Cuboid::Update(float dt)
 	shaderProgram->UseProgram();
 	// rotar sobre l'eix z
 	rotation = rotation + Right * angularVelocity * dt;
+	
+	InputHandle();
 
 	UpdateScale(dt);
 
 	// escalar de maxim a minim i tornar
 	shaderProgram->UnuseProgram();
+
 }
 
 void Cuboid::ShaderMatriux()
@@ -95,27 +99,33 @@ void Cuboid::ShaderMatriux()
 void Cuboid::UpdateScale(float dt)
 {
 	if (scalingDown) {
-		scale.x -= scaleSpeed * dt;
 		scale.y -= scaleSpeed * dt;
 		scale.z -= scaleSpeed * dt;
 
-		if (scale.x <= minScale) {
-			scale.x = minScale;
+		if (scale.y <= minScale) {
 			scale.y = minScale;
 			scale.z = minScale;
 			scalingDown = false;
 		}
 	}
 	else {
-		scale.x += scaleSpeed * dt;
 		scale.y += scaleSpeed * dt;
 		scale.z += scaleSpeed * dt;
 
-		if (scale.x >= maxScale) {
-			scale.x = maxScale;
+		if (scale.y >= maxScale) {
 			scale.y = maxScale;
 			scale.z = maxScale;
 			scalingDown = true;
 		}
 	}
 }
+
+void Cuboid::InputHandle()
+{
+	if (IM->getCurrentKey() == KeyPressed::THREE) 
+		_rendering = !_rendering;
+
+	
+	
+}
+

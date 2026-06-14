@@ -1,11 +1,12 @@
 #include "Pyramid.h"
+#include "../../InputManager/InputManager.h"
 
 void Pyramid::SetupGeometry(GLuint VAO)
 {
 
 
 	// VBOs
-	glGenBuffers(3, &vertexBufferObject);
+	glGenBuffers(1, &vertexBufferObject);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
 
 	GLfloat vertices[] = {
@@ -37,9 +38,9 @@ void Pyramid::SetupGeometry(GLuint VAO)
 
 	//shaders
 	shaderProgram = new ShaderProgram();
-	shaderProgram->GetVertexShader()->loadVertexShader("MyFistVertexShader.glsl");
-	shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
-	shaderProgram->GetFragmentShader()->loadFragmentShader("MyFirstFragmentShader.glsl");
+	shaderProgram->GetVertexShader()->loadVertexShader("MoveGeometiyVertexShader.glsl");
+	//shaderProgram->GetGeometryShader()->loadGeometryShader("MyFirstGeometryShader.glsl");
+	shaderProgram->GetFragmentShader()->loadFragmentShader("YelowOrangeFragmentShader.glsl");
 	shaderProgram->loadProgram();
 
 	shaderProgram->UseProgram();
@@ -80,6 +81,8 @@ void Pyramid::Update(float dt)
 
 	// cambia de color cada 2 segons
 	shaderProgram->UseProgram();
+
+	InputHandle();
 }
 
 void Pyramid::ShaderMatriux()
@@ -94,6 +97,15 @@ void Pyramid::ShaderMatriux()
 	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix * modelMatrix;
 
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->GetProgram(), "transform"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+}
+
+
+
+void Pyramid::InputHandle()
+{
+	if (IM->getCurrentKey() == KeyPressed::FOUR) {
+		_rendering = !_rendering;
+	}
 }
 
 
